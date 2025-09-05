@@ -1,0 +1,185 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Control de Versiones — Guía</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#0ea5a4; --muted:#94a3b8; --mono: 'SFMono-Regular',Consolas,monospace;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#081126 0%,#071427 100%);color:#e6eef6}
+    .wrapper{max-width:960px;margin:32px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    header{display:flex;align-items:center;gap:16px}
+    header h1{margin:0;font-size:1.6rem}
+    header p{margin:0;color:var(--muted)}
+    nav{margin:20px 0;display:flex;gap:8px;flex-wrap:wrap}
+    nav a{color:var(--accent);text-decoration:none;padding:8px 12px;border-radius:8px;background:rgba(14,165,164,0.06);font-size:0.95rem}
+    section{margin:22px 0;padding:18px;background:rgba(255,255,255,0.01);border-radius:10px}
+    h2{margin-top:0}
+    pre{background:#021026;color:#dff6f5;padding:14px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:0.95rem}
+    code.inline{background:rgba(255,255,255,0.02);padding:2px 6px;border-radius:6px;font-family:var(--mono)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    aside{background:rgba(255,255,255,0.01);padding:14px;border-radius:10px}
+    ul{line-height:1.6}
+    footer{margin-top:20px;color:var(--muted);font-size:0.9rem}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}aside{order:2}}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div>
+        <h1>Control de Versiones — Guía práctica</h1>
+        <p>Resumen de comandos y flujo de trabajo Git + pasos básicos en GitKraken</p>
+      </div>
+    </header>
+
+    <nav>
+      <a href="#intro">Introducción</a>
+      <a href="#instalar">Instalar & configurar</a>
+      <a href="#flujo">Flujo (feature → develop → main)</a>
+      <a href="#comandos">Comandos útiles</a>
+      <a href="#gitkraken">GitKraken</a>
+      <a href="#buenas-practicas">Buenas prácticas</a>
+    </nav>
+
+    <div class="grid">
+      <main>
+        <section id="intro">
+          <h2>1. Introducción</h2>
+          <p>Git es un sistema de control de versiones distribuido. Permite trabajar en paralelo, mantener el historial y colaborar mediante ramas y merges. En este documento veremos un flujo común: <strong>feature branches → develop → main</strong>.</p>
+        </section>
+
+        <section id="instalar">
+          <h2>2. Instalar y configurar Git</h2>
+          <p>Comandos mínimos para empezar:</p>
+          <pre><code>git --version
+# configurar identidad (solo la primera vez)
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+# opcional: elegir editor y colores
+git config --global core.editor "code --wait"
+git config --global color.ui auto</code></pre>
+        </section>
+
+        <section id="flujo">
+          <h2>3. Flujo de trabajo recomendado</h2>
+          <p>Ejemplo de flujo para cada tarea o feature:</p>
+          <ol>
+            <li>Actualizar la rama <code class="inline">develop</code> desde remoto.</li>
+            <li>Crear una rama de trabajo basada en <code class="inline">develop</code> (ej. <code class="inline">feature/mi-feature</code>).</li>
+            <li>Desarrollar, commitear frecuentemente en local.</li>
+            <li>Hacer push de la rama y abrir Pull Request a <code class="inline">develop</code>.</li>
+            <li>Revisiones, tests y merge a <code class="inline">develop</code>. Luego integrar a <code class="inline">main</code> mediante release o hotfix cuando corresponda.</li>
+          </ol>
+
+          <h3>Comandos paso a paso</h3>
+          <pre><code># situarse en develop y actualizar
+git checkout develop
+git pull origin develop
+
+# crear rama feature y moverse a ella
+git checkout -b feature/mi-feature
+
+# trabajar, agregar y commitear
+git add archivo1 archivo2
+git commit -m "feat: agregar X"
+
+# subir la rama al remoto
+git push -u origin feature/mi-feature</code></pre>
+        </section>
+
+        <section id="comandos">
+          <h2>4. Comandos útiles y atajos</h2>
+          <ul>
+            <li><code class="inline">git status</code> — ver cambios</li>
+            <li><code class="inline">git diff</code> — ver diferencias</li>
+            <li><code class="inline">git log --oneline --graph --all</code> — historial compacto</li>
+            <li><code class="inline">git rebase develop</code> — rebasear tu rama sobre develop (mantiene historial lineal)</li>
+            <li><code class="inline">git merge --no-ff feature/mi-feature</code> — merge con commit de merge</li>
+            <li><code class="inline">git cherry-pick &lt;commit&gt;</code> — traer commit específico a otra rama</li>
+            <li><code class="inline">git stash</code> — guardar cambios temporales (ver <code class="inline">git stash pop</code>)</li>
+          </ul>
+
+          <h3>Resolver conflictos básicos</h3>
+          <p>Si hay conflictos al hacer <code class="inline">merge</code> o <code class="inline">rebase</code>:</p>
+          <pre><code># después de conflicto editar archivos en conflicto
+git add archivo-resuelto
+# si estabas rebaseando
+git rebase --continue
+# si estabas mergeando
+git commit -m "fix: resolver conflicto"
+</code></pre>
+        </section>
+
+        <section id="gitkraken">
+          <h2>5. GitKraken — pasos rápidos</h2>
+          <p>GitKraken es una interfaz gráfica que simplifica ramas, merges y rebases. Pasos para sincronizar tu rama con <code class="inline">develop</code>:</p>
+          <ol>
+            <li>Abrir el repo en GitKraken.</li>
+            <li>En la lista de ramas seleccionar <code class="inline">develop</code> y hacer <strong>Fetch</strong>.</li>
+            <li>Checkout en tu rama (doble click).</li>
+            <li>Arrastrar tu rama hacia <code class="inline">develop</code> para crear un Merge o usar el botón <em>Merge</em> en la barra lateral.</li>
+            <li>Resolver conflictos desde el editor integrado si aparecen.</li>
+            <li>Hacer Push desde GitKraken para subir cambios al remoto.</li>
+          </ol>
+
+          <p>Consejo: usa la vista de <em>Graph</em> para entender la historia visualmente y evita hacer merges desde la línea de tiempo si no estás seguro — mejor hazlo desde el menú de Merge o Pull Request.</p>
+        </section>
+
+        <section id="buenas-practicas">
+          <h2>6. Buenas prácticas</h2>
+          <ul>
+            <li>Commits pequeños y con mensajes claros: <code class="inline">type(scope): mensaje</code> (ej. <code class="inline">feat(api): agregar endpoint de login</code>).</li>
+            <li>Actualizar tu rama con <code class="inline">develop</code> frecuentemente para reducir conflictos.</li>
+            <li>Revisiones de código (PR) con checklist: tests, lint, impacto en API, documentación.</li>
+            <li>No subir secretos: usa variables de entorno o archivos ignorados con <code class="inline">.gitignore</code>.</li>
+            <li>Agregar un archivo <code class="inline">README.md</code> y guías de contribución (<code class="inline">CONTRIBUTING.md</code>).</li>
+          </ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <h3>Atajos rápidos</h3>
+        <pre><code># clonar repo
+git clone git@github.com:org/repo.git
+
+# crear y pushear rama
+git checkout -b fix/bug-123
+git push -u origin fix/bug-123
+
+# actualizar develop y rebasear
+git checkout develop
+git pull origin develop
+git checkout feature/mi-feature
+git rebase develop
+
+# eliminar rama remota
+git push origin --delete feature/mi-feature</code></pre>
+
+        <h3>Archivos importantes</h3>
+        <ul>
+          <li><code>.gitignore</code> — qué excluir</li>
+          <li><code>README.md</code></li>
+          <li><code>CONTRIBUTING.md</code></li>
+          <li><code>CODE_OF_CONDUCT.md</code></li>
+        </ul>
+
+        <h3>Recursos</h3>
+        <ul>
+          <li>Documentación oficial de Git</li>
+          <li>Tutoriales interactivos: <em>Try Git</em></li>
+          <li>Guias de GitKraken</li>
+        </ul>
+      </aside>
+    </div>
+
+    <footer>
+      <p>Creado para el Manual Digital del equipo — adapta ejemplos a tu flujo de trabajo. Si quieres, te genero la versión en Markdown o una hoja imprimible.</p>
+    </footer>
+  </div>
+</body>
+</html>
