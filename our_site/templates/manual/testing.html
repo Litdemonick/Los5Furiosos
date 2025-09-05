@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manual · Testing de Software</title>
+  <style>
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --panel:#111827ee; /* gray-900 */
+      --card:#0b1229; /* dark panel */
+      --text:#e5e7eb; /* gray-200 */
+      --muted:#9ca3af; /* gray-400 */
+      --brand:#22c55e; /* green-500 */
+      --accent:#60a5fa; /* blue-400 */
+      --warning:#f59e0b; /* amber-500 */
+      --danger:#ef4444; /* red-500 */
+      --code-bg:#0b1022;
+      --border:#1f2937; /* gray-800 */
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f8fafc; /* slate-50 */
+        --panel:#ffffffee;
+        --card:#ffffff;
+        --text:#0f172a; /* slate-900 */
+        --muted:#475569; /* slate-600 */
+        --brand:#16a34a; /* green-600 */
+        --accent:#2563eb; /* blue-600 */
+        --warning:#d97706;
+        --danger:#dc2626;
+        --code-bg:#0f172a;
+        --border:#e5e7eb;
+        --shadow: 0 10px 30px rgba(2,6,23,.08);
+      }
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,.15), transparent),
+                  radial-gradient(1000px 500px at 120% 10%, rgba(52,211,153,.12), transparent),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 56px 20px 96px; }
+    header { display: grid; gap: 6px; margin-bottom: 28px; }
+    h1 { font-size: clamp(26px, 5vw, 40px); margin: 0; letter-spacing: .3px; }
+    .meta { color: var(--muted); font-size: 14px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 22px; box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    h2 { margin: 0 0 10px; font-size: clamp(18px, 3.2vw, 26px); color: var(--brand); }
+    h3 { margin: 18px 0 8px; font-size: 18px; color: var(--accent); }
+    p { margin: 0 0 10px; }
+    ul { margin: 8px 0 0 22px; }
+    li { margin: 6px 0; }
+    code, .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: var(--code-bg); border: 1px solid var(--border); padding: 2px 6px; border-radius: 8px; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .tag { display:inline-block; font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); margin-right: 6px; }
+    footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="wrap" aria-labelledby="titulo">
+    <header>
+      <h1 id="titulo">Testing de Software</h1>
+      <div class="meta">Autor: <strong>Brayan Quintero</strong> · Archivo: <span class="kbd">templates/manual/testing.html</span></div>
+      <p class="meta">Resumen práctico con definiciones claras para usar en clase o como referencia rápida.</p>
+    </header>
+
+    <section class="card" aria-labelledby="que-es">
+      <h2 id="que-es">¿Qué es el testing?</h2>
+      <p>Conjunto de actividades para <strong>verificar</strong> que el software hace lo que debe hacer y <strong>validar</strong> que satisface las necesidades del usuario, antes y después de desplegarlo.</p>
+      <div class="grid" aria-label="ideas clave">
+        <div><span class="tag">Detectar defectos temprano</span></div>
+        <div><span class="tag">Prevenir regresiones</span></div>
+        <div><span class="tag">Aumentar confianza</span></div>
+        <div><span class="tag">Documentación viva</span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="tipos">
+      <h2 id="tipos">Tipos de pruebas (con definición)</h2>
+      <ul>
+        <li><strong>Pruebas unitarias</strong>: validan <em>un componente pequeño</em> (función, clase o método) de forma aislada. Son rápidas y dan feedback inmediato.</li>
+        <li><strong>Pruebas de integración</strong>: verifican que <em>múltiples módulos</em> funcionan correctamente cuando se combinan (por ejemplo, servicio + base de datos).</li>
+        <li><strong>Pruebas funcionales</strong> (o <em>end‑to‑end</em>): evalúan el sistema <em>desde la perspectiva del usuario</em>, comprobando flujos completos (login, compra, etc.).</li>
+        <li><strong>Pruebas automatizadas</strong>: casos de prueba que se <em>ejecutan por herramientas</em> sin intervención humana (por ejemplo, en CI/CD). Pueden ser unitarias, de integración o funcionales, pero ejecutadas automáticamente.</li>
+      </ul>
+      <p class="meta">Nota: también existen otras como <em>regresión, rendimiento, seguridad</em>, según las necesidades del proyecto.</p>
+    </section>
+
+    <section class="card" aria-labelledby="importancia">
+      <h2 id="importancia">Importancia del testing en proyectos</h2>
+      <ul>
+        <li><strong>Reduce costos</strong>: arreglar errores temprano es mucho más barato que en producción.</li>
+        <li><strong>Permite refactorizar con seguridad</strong>: una buena base de pruebas detecta roturas al cambiar el código.</li>
+        <li><strong>Mejora la calidad</strong>: ayuda a cubrir casos borde y requisitos críticos.</li>
+        <li><strong>Aumenta la confianza del equipo y del cliente</strong>: despliegues más predecibles y estables.</li>
+        <li><strong>Documentación ejecutable</strong>: las pruebas explican <em>cómo debe comportarse</em> el sistema.</li>
+      </ul>
+    </section>
+
+    <section class="card" aria-labelledby="buenas-practicas">
+      <h2 id="buenas-practicas">Buenas prácticas</h2>
+      <ul>
+        <li><strong>Escribir pruebas antes o junto al código</strong> (TDD o enfoque simultáneo): define claramente el comportamiento esperado y guía el diseño.</li>
+        <li><strong>Patrón AAA</strong> (Arrange‑Act‑Assert): prepara datos, ejecuta la acción y verifica el resultado para pruebas legibles.</li>
+        <li><strong>Pruebas pequeñas, independientes y deterministas</strong>: que no dependan del orden de ejecución ni de internet o el reloj del sistema.</li>
+        <li><strong>Usar dobles de prueba</strong> (mocks, stubs, fakes): aísla dependencias externas como BD, APIs o reloj.</li>
+        <li><strong>Nombrar claramente</strong>: un buen nombre describe <em>qué</em> se prueba y <em>qué</em> se espera.</li>
+        <li><strong>Medir cobertura con criterio</strong>: alta cobertura ayuda, pero la meta real es validar comportamientos críticos.</li>
+        <li><strong>Integrar en CI/CD</strong>: ejecutar la suite automáticamente en cada commit y al desplegar.</li>
+      </ul>
+    </section>
+
+    <section class="card" aria-labelledby="mini-ejemplo">
+      <h2 id="mini-ejemplo">Mini‑ejemplo (pseudo‑código)</h2>
+      <p>Ilustración de una prueba unitaria usando el patrón AAA:</p>
+      <pre><code>// Arrange
+const carrito = new Carrito();
+carrito.agregar({ id: 1, precio: 10 });
+
+// Act
+const total = carrito.total();
+
+// Assert
+assert.equal(total, 10);
+</code></pre>
+      <p class="meta">El ejemplo muestra la idea general; usa tu framework favorito (p.ej., JUnit, pytest, PHPUnit, Jest).</p>
+    </section>
+
+    <footer>
+      Última actualización: <time datetime="2025-09-05">05/09/2025</time> · Este documento es auto‑contenido y puede ubicarse en <span class="kbd">templates/manual/testing.html</span>.
+    </footer>
+  </main>
+</body>
+</html>
