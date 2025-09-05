@@ -26,12 +26,12 @@
     <p>Bienvenido al manual colaborativo. Selecciona una sección para explorar:</p>
 
     <nav>
-      <a href="control_versiones.html">Control de Versiones</a>
-      <a href="metodologias_agiles.html">Metodologías Ágiles</a>
-      <a href="documentacion.html">Documentación de Código</a>
-      <a href="testing.html">Testing</a>
-      <a href="infraestructura.html">Infraestructura</a>
-      <a href="guia_equipo.html">Guía del Equipo</a>
+      <a href="{% url 'control_versiones' %}">Control de Versiones</a>
+      <a href="{% url 'MetodologiaAgiles' %}">Metodologías Ágiles</a>
+      <a href="{% url 'documentacion' %}">Documentación de Código</a>
+      <a href="{% url 'testing' %}">Testing</a>
+      <a href="{% url 'trabajo_equipo' %}">Guía del Equipo</a>
+      <a href="{% url 'recursos' %}">Recursos</a>
     </nav>
 
     <footer>
