@@ -2,11 +2,513 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metodologia Agiles</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual Digital de Metodologías Ágiles</title>
+  <meta name="description" content="Manual digital y práctico sobre metodologías ágiles (Scrum, Kanban, XP) con buenas prácticas para GitHub y GitKraken." />
+  <style>
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --panel:#111827ee; /* gray-900 */
+      --card:#0b1229; /* dark panel */
+      --text:#e5e7eb; /* gray-200 */
+      --muted:#9ca3af; /* gray-400 */
+      --brand:#22c55e; /* green-500 */
+      --accent:#60a5fa; /* blue-400 */
+      --warning:#f59e0b; /* amber-500 */
+      --danger:#ef4444; /* red-500 */
+      --code-bg:#0b1022;
+      --border:#1f2937; /* gray-800 */
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f8fafc; /* slate-50 */
+        --panel:#ffffffee;
+        --card:#ffffff;
+        --text:#0f172a; /* slate-900 */
+        --muted:#475569; /* slate-600 */
+        --brand:#16a34a; /* green-600 */
+        --accent:#2563eb; /* blue-600 */
+        --warning:#d97706;
+        --danger:#dc2626;
+        --code-bg:#0f172a;
+        --border:#e5e7eb;
+        --shadow: 0 10px 30px rgba(2,6,23,.08);
+      }
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0; background: radial-gradient(1200px 800px at 10% -10%, rgba(34,197,94,.08), transparent 40%),
+                           radial-gradient(1200px 800px at 110% 10%, rgba(96,165,250,.08), transparent 40%),
+                           var(--bg);
+      color:var(--text); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif; 
+      display:grid; grid-template-columns: 320px 1fr; gap: 24px; 
+    }
+
+    /* Sidebar */
+    aside{
+      position:sticky; top:0; height:100dvh; overflow:auto; 
+      padding:24px; border-right:1px solid var(--border); background:linear-gradient(180deg, var(--panel), transparent);
+      backdrop-filter: blur(6px);
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; 
+    }
+    .logo .dot{ width:10px; height:10px; border-radius:999px; background:var(--brand); box-shadow:0 0 0 6px color-mix(in oklch, var(--brand), transparent 80%);} 
+    nav{ margin-top:18px; }
+    .toc{ list-style:none; padding:0; margin:0; display:grid; gap:6px; }
+    .toc a{ text-decoration:none; color:var(--muted); padding:8px 10px; border-radius:10px; display:block; }
+    .toc a:hover, .toc a.active{ color:var(--text); background: color-mix(in oklch, var(--accent), transparent 88%);}
+
+    /* Main */
+    main{ padding: 28px 28px 80px; }
+    header.hero{
+      margin: 12px 0 28px; padding: 26px; border:1px solid var(--border); border-radius:20px; background:linear-gradient(160deg, color-mix(in oklch, var(--accent), transparent 88%), transparent 30%), var(--card); box-shadow:var(--shadow);
+    }
+    h1{ margin:0 0 8px; font-size: clamp(28px, 3vw, 40px); }
+    .sub{ color:var(--muted); margin-top:6px; }
+
+    section{ 
+      background: var(--panel); border:1px solid var(--border); border-radius:20px; padding:24px; margin: 18px 0; box-shadow:var(--shadow);
+    }
+    section h2{ margin:0 0 6px; font-size: clamp(22px, 2.4vw, 28px); }
+    section h3{ margin:18px 0 6px; font-size: 18px; }
+    p{ margin: 10px 0; }
+
+    .grid{ display:grid; gap:16px; }
+    .grid.cols-2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.cols-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+    @media (max-width:1000px){ body{ grid-template-columns: 1fr; } aside{ position:static; height:auto; } .grid.cols-2, .grid.cols-3{ grid-template-columns:1fr; }}
+
+    .card{
+      background: var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; 
+    }
+
+    /* Badges & lists */
+    .badge{ display:inline-block; padding:2px 10px; border-radius:999px; border:1px solid var(--border); font-size:12px; color:var(--muted); }
+    ul{ padding-left:18px; }
+    li{ margin:4px 0; }
+
+    /* Code blocks */
+    pre{ background: var(--code-bg); color:#e2e8f0; border-radius:14px; padding:14px 14px; border:1px solid var(--border); position:relative; overflow:auto; }
+    code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 13px; }
+    .copy{ position:absolute; top:8px; right:8px; border:1px solid var(--border); background: var(--panel); color:var(--text); border-radius:10px; padding:6px 9px; cursor:pointer; }
+    .kbd{ font: 12px ui-monospace, monospace; border:1px solid var(--border); padding:2px 6px; border-radius:6px; background:var(--panel); color:var(--muted);}    
+
+    /* Tables */
+    table{ width:100%; border-collapse:collapse; }
+    th,td{ border:1px solid var(--border); padding:10px; }
+    th{ background: color-mix(in oklch, var(--accent), transparent 88%); text-align:left; }
+
+    footer{ opacity:.8; font-size:14px; margin-top:28px; }
+  </style>
 </head>
 <body>
-    
+  <!-- Sidebar / Índice -->
+  <aside>
+    <div class="logo"><span class="dot"></span> <span>Manual Ágil</span></div>
+    <nav>
+      <ul class="toc" id="toc">
+        <li><a href="#intro" class="active">Introducción</a></li>
+        <li><a href="#principios">Principios y Valores</a></li>
+        <li><a href="#scrum">Scrum</a></li>
+        <li><a href="#kanban">Kanban</a></li>
+        <li><a href="#xp">XP (Extreme Programming)</a></li>
+        <li><a href="#planificacion">Planificación Ágil</a></li>
+        <li><a href="#metricas">Métricas</a></li>
+        <li><a href="#git">Git y GitHub</a></li>
+        <li><a href="#gitkraken">GitKraken</a></li>
+        <li><a href="#plantillas">Plantillas útiles</a></li>
+        <li><a href="#checklist">Checklist Rápido</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main>
+    <header class="hero">
+      <h1>Manual Digital de Metodologías Ágiles</h1>
+      <div class="sub">Scrum • Kanban • XP • GitHub • GitKraken
+        <span class="badge">Versión 1.0</span>
+      </div>
+    </header>
+
+    <section id="intro">
+      <h2>Introducción</h2>
+      <p>Este manual digital ofrece una guía práctica y accionable para adoptar <strong>metodologías ágiles</strong> en equipos de desarrollo y productos. Incluye procesos, artefactos, ejemplos y <strong>buenas prácticas en GitHub y GitKraken</strong> para que puedas acelerar la entrega de valor con calidad.</p>
+      <div class="grid cols-3">
+        <div class="card"><strong>Objetivo</strong><br/>Entregar valor temprano y continuo con feedback frecuente.</div>
+        <div class="card"><strong>Enfoque</strong><br/>Personas y colaboración sobre procesos rígidos.</div>
+        <div class="card"><strong>Resultado</strong><br/>Producto funcional, mantenible y alineado al cliente.</div>
+      </div>
+    </section>
+
+    <section id="principios">
+      <h2>Principios y Valores Ágiles</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Valores (Manifiesto Ágil)</h3>
+          <ul>
+            <li>Individuos e interacciones <em>sobre</em> procesos y herramientas.</li>
+            <li>Software funcionando <em>sobre</em> documentación extensa.</li>
+            <li>Colaboración con el cliente <em>sobre</em> negociación contractual.</li>
+            <li>Respuesta ante el cambio <em>sobre</em> seguir un plan rígido.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Principios Clave</h3>
+          <ul>
+            <li>Entregas frecuentes (semanas, no meses).</li>
+            <li>Trabajo sostenible y ritmo constante.</li>
+            <li>Excelencia técnica y buen diseño.</li>
+            <li>Simplicidad: maximizar el trabajo <em>no hecho</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="scrum">
+      <h2>Scrum</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Roles</h3>
+          <ul>
+            <li><strong>Product Owner</strong>: maximiza valor, prioriza el <em>Product Backlog</em>.</li>
+            <li><strong>Scrum Master</strong>: facilita, elimina impedimentos.</li>
+            <li><strong>Equipo de Desarrollo</strong>: multifuncional y auto-gestionado.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Eventos</h3>
+          <ul>
+            <li><strong>Sprint</strong> (1–4 semanas)</li>
+            <li>Planificación del Sprint</li>
+            <li>Daily Scrum (15 min)</li>
+            <li>Revisión y Retrospectiva</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Artefactos</h3>
+          <ul>
+            <li><strong>Product Backlog</strong></li>
+            <li><strong>Sprint Backlog</strong></li>
+            <li><strong>Incremento</strong> (Definición de Hecho)</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Definición de Hecho (DoD)</h3>
+      <ul>
+        <li>Compila, pasa pruebas y cumple criterios de aceptación.</li>
+        <li>Revisado por pares y mergeado a <code>main</code> con CI verde.</li>
+        <li>Documentación mínima actualizada (README, CHANGELOG, comentarios). </li>
+      </ul>
+    </section>
+
+    <section id="kanban">
+      <h2>Kanban</h2>
+      <p>Optimiza el flujo de trabajo visualizando estados y limitando <em>WIP</em> (trabajo en progreso).</p>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Tablero</h3>
+          <ul>
+            <li>Columnas típicas: <code>Backlog → To Do → In Progress → Review → Done</code></li>
+            <li>Tarjetas con: título, descripción, criterio de aceptación, tamaño.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>WIP</h3>
+          <ul>
+            <li>Limita tareas en progreso para evitar bloqueos.</li>
+            <li>Termina antes de empezar algo nuevo.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Políticas explícitas</h3>
+          <ul>
+            <li>Cuándo entra/sale trabajo de cada columna.</li>
+            <li>Definir bloqueos y cómo resolverlos.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="xp">
+      <h2>Extreme Programming (XP)</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Prácticas</h3>
+          <ul>
+            <li>Desarrollo guiado por pruebas (<strong>TDD</strong>).</li>
+            <li>Integración Continua (CI) y despliegues frecuentes.</li>
+            <li>Refactorización constante.</li>
+            <li>Programación en pareja (Pair Programming).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Calidad</h3>
+          <ul>
+            <li>Revisiones de código y estándares (linters, formatters).</li>
+            <li>Automatiza pruebas: unitarias, integración y end-to-end.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Entorno</h3>
+          <ul>
+            <li>Entornos reproducibles (Docker, IaC).</li>
+            <li>Feature flags para activar/desactivar funciones.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="planificacion">
+      <h2>Planificación Ágil</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Historias de Usuario</h3>
+          <pre><button class="copy" data-copy>Copiar</button><code>// Plantilla (formato INVEST)
+Como <rol>, quiero <capacidad> para <beneficio>.
+
+Criterios de aceptación (Gherkin):
+Dado <contexto>
+Cuando <acción>
+Entonces <resultado>
+</code></pre>
+        </div>
+        <div class="card">
+          <h3>Estimación</h3>
+          <ul>
+            <li>Story points (Serie de Fibonacci: 1, 2, 3, 5, 8, 13...).</li>
+            <li>Planning Poker y consenso del equipo.</li>
+            <li>Velocidad del equipo = puntos completados por sprint.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="metricas">
+      <h2>Métricas Esenciales</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Entrega</h3>
+          <ul>
+            <li><strong>Lead Time</strong>: idea → producción.</li>
+            <li><strong>Cycle Time</strong>: inicio → fin de tarea.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Salud del sprint</h3>
+          <ul>
+            <li>Burndown / Burnup charts.</li>
+            <li>Porcentaje de re-trabajo.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Calidad</h3>
+          <ul>
+            <li>Cobertura de pruebas (con criterio, no fetiche).</li>
+            <li>Defectos por release, tiempo medio de recuperación (MTTR).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="git">
+      <h2>Git y GitHub: Buenas Prácticas</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Flujos de trabajo</h3>
+          <ul>
+            <li><strong>GitHub Flow</strong> (recomendado para CD): rama por feature → PR → revisión → merge a <code>main</code> → despliegue.</li>
+            <li><strong>GitFlow</strong> (versionado tradicional): ramas <code>develop</code>, <code>release</code>, <code>hotfix</code> para ciclos más largos.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Convenciones de commits</h3>
+          <p>Usa <strong>Conventional Commits</strong> para facilitar el changelog y releases semánticos:</p>
+          <pre><button class="copy" data-copy>Copiar</button><code>feat(ui): botón primario con estado loading
+fix(api): corrige 500 al crear usuario
+chore(deps): actualiza axios a 1.7
+refactor(core): extrae validador de emails
+</code></pre>
+        </div>
+      </div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Buenas prácticas en GitHub</h3>
+          <ul>
+            <li><strong>Protege</strong> la rama <code>main</code> (PR obligatoria, CI obligatoria, 1–2 aprobaciones).</li>
+            <li>Activa <strong>CI/CD</strong> (GitHub Actions) con pruebas y linters.</li>
+            <li>Usa <strong>CODEOWNERS</strong> para revisiones automáticas.</li>
+            <li>Templates de <strong>Issues</strong> y <strong>PR</strong> (plantillas abajo).</li>
+            <li>Etiquetas y milestones para priorizar.</li>
+            <li>README claro, licencia, y <strong>CONTRIBUTING.md</strong>.</li>
+            <li>Security: Dependabot, escaneo de secretos, revisiones de permisos.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Comandos útiles</h3>
+          <pre><button class="copy" data-copy>Copiar</button><code># Configuración básica
+git config --global user.name "Tu Nombre"
+git config --global user.email tu@email.com
+
+# Flujo diario
+git checkout -b feat/nueva-funcion
+# ... cambios ...
+git add .
+git commit -m "feat(core): agrega nueva función"
+git push -u origin feat/nueva-funcion
+# Abre un Pull Request en GitHub
+
+# Rebase antes de mergear
+git fetch origin
+git rebase origin/main
+# Resolver conflictos (si hay) y continuar
+
+# Integración limpia
+git checkout main
+git pull
+git merge --ff-only origin/main
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="gitkraken">
+      <h2>GitKraken: Flujo y Tips</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Flujo típico en GitKraken</h3>
+          <ol>
+            <li><strong>Clonar</strong> repo (File → Clone). Autentica con GitHub/GitLab.</li>
+            <li><strong>Crear rama</strong> (Branch → Create new branch, p.ej. <code>feat/login</code>).</li>
+            <li><strong>Stage</strong> cambios selectivos (piezas de líneas si es necesario).</li>
+            <li><strong>Commit</strong> con mensaje convencional; firma GPG si aplica.</li>
+            <li><strong>Push</strong> rama y usa botón <em>Open Pull Request</em> (integra con GitHub).</li>
+            <li>Usa el <strong>gráfico</strong> para revisar merges/rebases y resolver conflictos visualmente.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>Consejos</h3>
+          <ul>
+            <li>Activa <em>WIP</em> en el título del PR para evitar merges accidentales.</li>
+            <li>Usa <em>Interactive Rebase</em> para ordenar/limpiar commits antes del PR.</li>
+            <li>Configura <strong>Hooks</strong> (pre-commit) para linters/formatters automáticos.</li>
+            <li>Marca <em>Favorite Repos</em> y usa <em>Workspaces</em> para proyectos múltiples.</li>
+            <li>Atajos: <span class="kbd">Ctrl</span> + <span class="kbd">P</span> abre acciones rápidas; <span class="kbd">Ctrl</span> + <span class="kbd">B</span> alterna panel.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="plantillas">
+      <h2>Plantillas útiles</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>.github/ISSUE_TEMPLATE/bug_report.md</h3>
+          <pre><button class="copy" data-copy>Copiar</button><code>---
+name: "Reporte de bug"
+about: "Ayúdanos a corregir un problema"
+labels: bug
+---
+**Describe el bug**
+Comportamiento observado vs esperado
+
+**Para reproducir**
+1. Ir a '...'
+2. Hacer '...'
+
+**Entorno**
+- SO:
+- Versión:
+</code></pre>
+        </div>
+        <div class="card">
+          <h3>.github/pull_request_template.md</h3>
+          <pre><button class="copy" data-copy>Copiar</button><code>## Descripción
+Resumen de cambios y objetivo
+
+## Checklist
+- [ ] Pruebas locales pasan
+- [ ] Agrega/actualiza documentación
+- [ ] Cumple DoD
+
+## Screenshots
+(N/A)
+</code></pre>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>CODEOWNERS</h3>
+          <pre><button class="copy" data-copy>Copiar</button><code># Reglas de propietarios de código
+*       @equipo-core
+/docs/* @doc-team
+/api/*  @backend-leads
+</code></pre>
+        </div>
+        <div class="card">
+          <h3>CONTRIBUTING.md (extracto)</h3>
+          <pre><button class="copy" data-copy>Copiar</button><code># Contribuir
+1. Crea rama desde `main`.
+2. Sigue Conventional Commits.
+3. Añade pruebas y linters.
+4. Abre PR con template.
+5. Espera 1–2 aprobaciones.
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <h2>Checklist Rápido</h2>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Definición de Hecho documentada</td><td>□</td></tr>
+          <tr><td>Ramas protegidas y CI en GitHub</td><td>□</td></tr>
+          <tr><td>Plantillas de Issues y PR</td><td>□</td></tr>
+          <tr><td>Board Kanban con WIP</td><td>□</td></tr>
+          <tr><td>Release notes automatizados</td><td>□</td></tr>
+          <tr><td>Revisiones de seguridad activas</td><td>□</td></tr>
+        </tbody>
+      </table>
+      <footer>© 2025, Manual Ágil. Hecho con ♥ para equipos que entregan valor.</footer>
+    </section>
+  </main>
+
+  <script>
+    // TOC activo al hacer scroll
+    const headings = [...document.querySelectorAll('main section')];
+    const links = [...document.querySelectorAll('.toc a')];
+    const byId = id => document.querySelector(`.toc a[href="#${id}"]`);
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          links.forEach(l => l.classList.remove('active'));
+          const link = byId(e.target.id); if(link) link.classList.add('active');
+        }
+      })
+    }, { rootMargin:'-40% 0px -55% 0px', threshold:0.01 });
+    headings.forEach(h => obs.observe(h));
+
+    // Copiar código
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.addEventListener('click', () => {
+        const code = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            const old = btn.textContent; btn.textContent = 'Copiado!';
+            ebtn.disabled = true; setTimeout(() => { btn.textContent = old; btn.disabled = false; }, 1200);
+    });
+        });
+    });
+    </script>
 </body>
 </html>
