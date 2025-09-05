@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Manual Digital — Inicio</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#0ea5a4; --muted:#94a3b8;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#081126 0%,#071427 100%);color:#e6eef6}
+    .wrapper{max-width:860px;margin:40px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6);text-align:center}
+    h1{margin:0 0 20px;font-size:2rem;color:#fff}
+    p{margin:0 0 20px;color:var(--muted)}
+    nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+    a{display:block;padding:14px 18px;background:rgba(14,165,164,0.08);border-radius:10px;color:var(--accent);text-decoration:none;font-weight:500;transition:background 0.2s}
+    a:hover{background:rgba(14,165,164,0.15)}
+    footer{margin-top:30px;font-size:0.9rem;color:var(--muted)}
+    @media(max-width:640px){nav{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Manual Digital — Equipo</h1>
+    <p>Bienvenido al manual colaborativo. Selecciona una sección para explorar:</p>
+
+    <nav>
+      <a href="control_versiones.html">Control de Versiones</a>
+      <a href="metodologias_agiles.html">Metodologías Ágiles</a>
+      <a href="documentacion.html">Documentación de Código</a>
+      <a href="testing.html">Testing</a>
+      <a href="infraestructura.html">Infraestructura</a>
+      <a href="guia_equipo.html">Guía del Equipo</a>
+    </nav>
+
+    <footer>
+      <p>Manual Digital — versión inicial. Desarrollado en conjunto por el equipo.</p>
+    </footer>
+  </div>
+</body>
+</html>
