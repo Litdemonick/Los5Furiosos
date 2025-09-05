@@ -2,11 +2,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    
     <meta charset="UTF-8">
     <title>Trabajo en Equipo en Desarrollo de Software</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+    <head>
 <body>
+    <style>
+    /* styles.css */
+:root {
+  --bg:#0f172a; /* slate-900 */
+  --panel:#111827ee; /* gray-900 */
+  --card:#0b1229; /* dark panel */
+  --text:#e5e7eb; /* gray-200 */
+  --muted:#9ca3af; /* gray-400 */
+  --brand:#22c55e; /* green-500 */
+  --accent:#60a5fa; /* blue-400 */
+  --warning:#f59e0b; /* amber-500 */
+  --danger:#ef4444; /* red-500 */
+  --code-bg:#0b1022;
+  --border:#1f2937; /* gray-800 */
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:#f8fafc; /* slate-50 */
+    --panel:#ffffffee;
+    --card:#ffffff;
+    --text:#0f172a; /* slate-900 */
+    --muted:#475569; /* slate-600 */
+    --brand:#16a34a; /* green-600 */
+    --accent:#2563eb; /* blue-600 */
+    --warning:#d97706;
+    --danger:#dc2626;
+    --code-bg:#0f172a;
+    --border:#e5e7eb;
+    --shadow: 0 10px 30px rgba(2,6,23,.08);
+  }
+}
+
+/* Fondo azul uniforme */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--accent); /* azul uniforme */
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Cabecera */
+header {
+  text-align: center;
+  padding: 2rem;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+/* Contenido */
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+h1, h2 {
+  color: var(--brand);
+}
+
+ul {
+  list-style: disc inside;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+    </style>
     <header>
         <h1>Trabajo en Equipo</h1>
         <p>Buenas prácticas en equipos de desarrollo de software</p>
