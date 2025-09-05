@@ -17,7 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from core import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', views.index, name="index"),
+    path('control-versiones/', views.control_versiones, name="control_versiones"),
+    path('metodologias-agiles/', views.metodologias_agiles, name="metodologias_agiles"),
+    path('documentacion/', views.documentacion, name="documentacion"),
+    path('testing/', views.testing, name="testing"),
+    path('trabajo-equipo/', views.trabajo_equipo, name="trabajo_equipo"),
+    path('recursos/', views.recursos, name="recursos"),
 ]
+
