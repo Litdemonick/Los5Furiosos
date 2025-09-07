@@ -40,11 +40,43 @@ Entre las herramientas y frameworks principales estarán:
 
 ---
 
-## 📂 Organización del repositorio
-- `/src` → Código fuente de los proyectos.  
-- `/docs` → Documentación técnica y guías.  
-- `/tests` → Pruebas automatizadas.  
-- `/examples` → Ejemplos y pruebas de conceptos.  
+## 📂 Estructura del repositorio
+
+```bash
+LOSSFURIOSOS/
+│
+├── our_site/                  # Proyecto principal en Django
+│   ├── core/                  # Aplicación principal
+│   │   ├── migrations/        # Migraciones de la base de datos
+│   │   ├── admin.py           # Configuración del panel de administración
+│   │   ├── apps.py            # Configuración de la aplicación
+│   │   ├── models.py          # Definición de modelos
+│   │   ├── tests.py           # Pruebas del proyecto
+│   │   ├── views.py           # Vistas principales
+│   │   └── __init__.py
+│   │
+│   ├── asgi.py                # Configuración ASGI
+│   ├── settings.py            # Configuración global del proyecto
+│   ├── urls.py                # Rutas principales
+│   ├── wsgi.py                # Configuración WSGI
+│   └── __init__.py
+│
+├── static/
+│   └── manual/                # Archivos estáticos (CSS, imágenes, etc.)
+│       └── style.css
+│
+├── templates/
+│   └── manual/                # Vistas HTML del proyecto
+│       ├── control_versiones.html
+│       ├── documentacion.html
+│       ├── index.html
+│       ├── MetodologiaAgiles.html
+│       ├── testing.html
+│       └── trabajo_equipo.html
+│
+├── db.sqlite3                 # Base de datos SQLite
+├── manage.py                  # Script de gestión de Django
+└── README.md                  # Documentación principal
 
 ---
 
