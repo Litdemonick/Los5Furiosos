@@ -77,6 +77,7 @@ LOSSFURIOSOS/
 ├── db.sqlite3                 # Base de datos SQLite
 ├── manage.py                  # Script de gestión de Django
 └── README.md                  # Documentación principal
+```bash
 
 ---
 
