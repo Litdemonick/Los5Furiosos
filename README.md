@@ -5,42 +5,7 @@ Aquí mi grupo y yo trabajaremos en proyectos de programación, buenas práctica
 
 ---
 
-## 📝 Descripción del proyecto
-Este repositorio será nuestro espacio para:  
-- Programar soluciones en distintos lenguajes.  
-- Editar y versionar código con buenas prácticas.  
-- Documentar de manera clara y ordenada.  
-- Aprender y crecer como equipo de desarrolladores.  
-
----
-
-## 🔧 Tecnologías que utilizaremos
-Entre las herramientas y frameworks principales estarán:  
-
-- 🐍 **Python**  
-- 📦 **Anaconda**  
-- 🌐 **Django**  
-- 🎨 **HTML5 / CSS3 / JavaScript**  
-- 🛢️ **MySQL / PostgreSQL**  
-- ☁️ **Git & GitHub**  
-- 🖥️ **Linux / Ubuntu / Windows**  
-- 🧪 **Pruebas automatizadas (PyTest, Unittest)**  
-- ⚙️ **Docker (posible integración futura)**  
-
-*(La lista crecerá conforme avancemos en nuestros proyectos 🚀)*  
-
----
-
-## 👥 Integrantes del equipo
-- **Carlos Miranda**  
-- **Harold Morales**  
-- **Eliecias Cubilla**  
-- **Brayan Quintero**  
-- **Eddie Man**  
-
----
-
-## 📂 Estructura del repositorio
+## 📂 Estructura del repositorio  
 
 ```bash
 LOSSFURIOSOS/
@@ -77,7 +42,43 @@ LOSSFURIOSOS/
 ├── db.sqlite3                 # Base de datos SQLite
 ├── manage.py                  # Script de gestión de Django
 └── README.md                  # Documentación principal
-```bash
+
+```
+
+---
+
+## 📝 Descripción del proyecto
+Este repositorio será nuestro espacio para:  
+- Programar soluciones en distintos lenguajes.  
+- Editar y versionar código con buenas prácticas.  
+- Documentar de manera clara y ordenada.  
+- Aprender y crecer como equipo de desarrolladores.  
+
+---
+
+## 🔧 Tecnologías que utilizaremos
+Entre las herramientas y frameworks principales estarán:  
+
+- 🐍 **Python**  
+- 📦 **Anaconda**  
+- 🌐 **Django**  
+- 🎨 **HTML5 / CSS3 / JavaScript**  
+- 🛢️ **MySQL / PostgreSQL**  
+- ☁️ **Git & GitHub**  
+- 🖥️ **Linux / Ubuntu / Windows**  
+- 🧪 **Pruebas automatizadas (PyTest, Unittest)**  
+- ⚙️ **Docker (posible integración futura)**  
+
+*(La lista crecerá conforme avancemos en nuestros proyectos 🚀)*  
+
+---
+
+## 👥 Integrantes del equipo
+- **Carlos Miranda**  
+- **Harold Morales**  
+- **Eliecias Cubilla**  
+- **Brayan Quintero**  
+- **Eddie Man**  
 
 ---
 
@@ -104,3 +105,4 @@ Clona el repositorio y entra a la carpeta principal:
 ```bash
 git clone https://github.com/tu_usuario/Los5Furiosos.git
 cd Los5Furiosos
+```
